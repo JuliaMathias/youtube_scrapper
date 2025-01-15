@@ -19,4 +19,21 @@ defmodule YouTubeScrapper.PlaylistsFixtures do
 
     playlist
   end
+
+  @doc """
+  Generate a video.
+  """
+  def video_fixture(attrs \\ %{}) do
+    {:ok, video} =
+      attrs
+      |> Enum.into(%{
+        description: "some description",
+        duration: "some duration",
+        scraped_on: ~D[2025-01-13],
+        title: "some title"
+      })
+      |> YouTubeScrapper.Playlists.create_video()
+
+    video
+  end
 end
