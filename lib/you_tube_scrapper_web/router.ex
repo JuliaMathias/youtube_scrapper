@@ -31,6 +31,8 @@ defmodule YouTubeScrapperWeb.Router do
 
     live "/videos/:id", VideoLive.Show, :show
     live "/videos/:id/show/edit", VideoLive.Show, :edit
+
+    live "/scrape", ScrapeLive, :index
   end
 
   # Other scopes may use custom stacks.

@@ -1,0 +1,16 @@
+<div>
+  <h1>Which video would you like to scrape?</h1>
+  <.simple_form for={:scrape} phx-submit="scrape">
+    <.input field={:playlist_url} type="text" label="YouTube Playlist URL" />
+    <:actions>
+      <.button>Scrape</.button>
+    </:actions>
+  </.simple_form>
+
+  <.table id="videos" rows={@videos}>
+    <:col :let={video} label="Title">{video.title}</:col>
+    <:col :let={video} label="Duration">{video.duration}</:col>
+    <:col :let={video} label="Description">{video.description}</:col>
+    <:col :let={video} label="Posted on">{video.posted_on}</:col>
+  </.table>
+</div>
