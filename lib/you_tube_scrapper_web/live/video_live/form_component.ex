@@ -23,6 +23,7 @@ defmodule YouTubeScrapperWeb.VideoLive.FormComponent do
         <.input field={@form[:duration]} type="text" label="Duration" />
         <.input field={@form[:description]} type="text" label="Description" />
         <.input field={@form[:posted_on]} type="date" label="Posted on" />
+        <.input field={@form[:url]} type="text" label="URL" />
         <:actions>
           <.button phx-disable-with="Saving...">Save Video</.button>
         </:actions>
