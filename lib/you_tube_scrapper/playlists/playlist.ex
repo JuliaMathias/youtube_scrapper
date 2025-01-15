@@ -16,6 +16,6 @@ defmodule YouTubeScrapper.Playlists.Playlist do
   def changeset(playlist, attrs) do
     playlist
     |> cast(attrs, [:title, :link, :last_scraping])
-    |> validate_required([:title, :link, :last_scraping])
+    |> validate_required([:title, :link])
   end
 end
