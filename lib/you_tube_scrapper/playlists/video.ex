@@ -9,6 +9,7 @@ defmodule YouTubeScrapper.Playlists.Video do
     field :title, :string
     field :duration, :string
     field :posted_on, :date
+    field :url, :string
     field :playlist_id, :binary_id
 
     timestamps(type: :utc_datetime)
@@ -17,7 +18,7 @@ defmodule YouTubeScrapper.Playlists.Video do
   @doc false
   def changeset(video, attrs) do
     video
-    |> cast(attrs, [:title, :duration, :description, :posted_on])
-    |> validate_required([:title, :duration, :description, :posted_on])
+    |> cast(attrs, [:title, :duration, :description, :posted_on, :url, :playlist_id])
+    |> validate_required([:title, :duration, :description, :posted_on, :url, :playlist_id])
   end
 end

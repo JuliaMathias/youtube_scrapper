@@ -4,12 +4,25 @@ defmodule YouTubeScrapperWeb.VideoLiveTest do
   import Phoenix.LiveViewTest
   import YouTubeScrapper.PlaylistsFixtures
 
-  @create_attrs %{description: "some description", title: "some title", duration: "some duration", posted_on: "2025-01-13"}
-  @update_attrs %{description: "some updated description", title: "some updated title", duration: "some updated duration", posted_on: "2025-01-14"}
+  @create_attrs %{
+    description: "some description",
+    title: "some title",
+    duration: "some duration",
+    posted_on: "2025-01-13",
+    url: "some url"
+  }
+  @update_attrs %{
+    description: "some updated description",
+    title: "some updated title",
+    duration: "some updated duration",
+    posted_on: "2025-01-14",
+    url: "some updated url"
+  }
   @invalid_attrs %{description: nil, title: nil, duration: nil, posted_on: nil}
 
   defp create_video(_) do
-    video = video_fixture()
+    playlist = playlist_fixture()
+    video = video_fixture(%{playlist_id: playlist.id})
     %{video: video}
   end
 
