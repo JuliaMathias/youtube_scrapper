@@ -29,7 +29,7 @@ defmodule YouTubeScrapper.PlaylistsFixtures do
       |> Enum.into(%{
         description: "some description",
         duration: "some duration",
-        scraped_on: ~D[2025-01-13],
+        posted_on: ~D[2025-01-13],
         title: "some title"
       })
       |> YouTubeScrapper.Playlists.create_video()

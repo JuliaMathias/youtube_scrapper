@@ -15,7 +15,7 @@
   <:col :let={{_id, video}} label="Title">{video.title}</:col>
   <:col :let={{_id, video}} label="Duration">{video.duration}</:col>
   <:col :let={{_id, video}} label="Description">{video.description}</:col>
-  <:col :let={{_id, video}} label="Scraped on">{video.scraped_on}</:col>
+  <:col :let={{_id, video}} label="Posted on">{video.posted_on}</:col>
   <:action :let={{_id, video}}>
     <div class="sr-only">
       <.link navigate={~p"/videos/#{video}"}>Show</.link>
