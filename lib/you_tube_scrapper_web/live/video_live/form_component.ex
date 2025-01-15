@@ -24,6 +24,7 @@ defmodule YouTubeScrapperWeb.VideoLive.FormComponent do
         <.input field={@form[:description]} type="text" label="Description" />
         <.input field={@form[:posted_on]} type="date" label="Posted on" />
         <.input field={@form[:url]} type="text" label="URL" />
+        <.input field={@form[:playlist_id]} type="select" label="Playlist" options={@playlists} />
         <:actions>
           <.button phx-disable-with="Saving...">Save Video</.button>
         </:actions>
@@ -34,9 +35,11 @@ defmodule YouTubeScrapperWeb.VideoLive.FormComponent do
 
   @impl true
   def update(%{video: video} = assigns, socket) do
+    playlists = Playlists.list_playlists() |> Enum.map(&{&1.title, &1.id})
     {:ok,
      socket
      |> assign(assigns)
+     |> assign(:playlists, playlists)
      |> assign_new(:form, fn ->
        to_form(Playlists.change_video(video))
      end)}

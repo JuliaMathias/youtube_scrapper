@@ -71,11 +71,10 @@ defmodule YouTubeScrapper.PlaylistsTest do
   end
 
   describe "videos" do
-    @invalid_attrs %{description: nil, title: nil, duration: nil, posted_on: nil, url: nil}
-
     test "list_videos/0 returns all videos" do
       playlist = playlist_fixture()
       video = video_fixture(%{playlist_id: playlist.id})
+      video = Playlists.get_video!(video.id) |> Repo.preload(:playlist)
       assert Playlists.list_videos() == [video]
     end
 

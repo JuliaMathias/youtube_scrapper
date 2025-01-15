@@ -3,10 +3,12 @@ defmodule YouTubeScrapperWeb.VideoLive.Index do
 
   alias YouTubeScrapper.Playlists
   alias YouTubeScrapper.Playlists.Video
+  alias YouTubeScrapper.Repo
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :videos, Playlists.list_videos())}
+    videos = Playlists.list_videos() |> Repo.preload(:playlist)
+    {:ok, stream(socket, :videos, videos)}
   end
 
   @impl true
