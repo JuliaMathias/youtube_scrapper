@@ -74,28 +74,33 @@ defmodule YouTubeScrapper.PlaylistsTest do
     @invalid_attrs %{description: nil, title: nil, duration: nil, posted_on: nil, url: nil}
 
     test "list_videos/0 returns all videos" do
-      video = video_fixture()
+      playlist = playlist_fixture()
+      video = video_fixture(%{playlist_id: playlist.id})
       assert Playlists.list_videos() == [video]
     end
 
     test "get_video!/1 returns the video with given id" do
-      video = video_fixture()
+      playlist = playlist_fixture()
+      video = video_fixture(%{playlist_id: playlist.id})
       assert Playlists.get_video!(video.id) == video
     end
 
     test "create_video/1 with valid data creates a video" do
+      playlist = playlist_fixture()
+
       valid_attrs = %{
         description: "some description",
         title: "some title",
-        duration: "some duration",
+        duration: "34:23",
         posted_on: ~D[2025-01-13],
-        url: "some url"
+        url: "some url",
+        playlist_id: playlist.id
       }
 
       assert {:ok, %Video{} = video} = Playlists.create_video(valid_attrs)
       assert video.description == "some description"
       assert video.title == "some title"
-      assert video.duration == "some duration"
+      assert video.duration == "34:23"
       assert video.posted_on == ~D[2025-01-13]
       assert video.url == "some url"
     end
@@ -105,7 +110,8 @@ defmodule YouTubeScrapper.PlaylistsTest do
     end
 
     test "update_video/2 with valid data updates the video" do
-      video = video_fixture()
+      playlist = playlist_fixture()
+      video = video_fixture(%{playlist_id: playlist.id})
 
       update_attrs = %{
         description: "some updated description",
@@ -124,19 +130,22 @@ defmodule YouTubeScrapper.PlaylistsTest do
     end
 
     test "update_video/2 with invalid data returns error changeset" do
-      video = video_fixture()
+      playlist = playlist_fixture()
+      video = video_fixture(%{playlist_id: playlist.id})
       assert {:error, %Ecto.Changeset{}} = Playlists.update_video(video, @invalid_attrs)
       assert video == Playlists.get_video!(video.id)
     end
 
     test "delete_video/1 deletes the video" do
-      video = video_fixture()
+      playlist = playlist_fixture()
+      video = video_fixture(%{playlist_id: playlist.id})
       assert {:ok, %Video{}} = Playlists.delete_video(video)
       assert_raise Ecto.NoResultsError, fn -> Playlists.get_video!(video.id) end
     end
 
     test "change_video/1 returns a video changeset" do
-      video = video_fixture()
+      playlist = playlist_fixture()
+      video = video_fixture(%{playlist_id: playlist.id})
       assert %Ecto.Changeset{} = Playlists.change_video(video)
     end
   end
