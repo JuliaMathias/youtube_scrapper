@@ -10,7 +10,8 @@ defmodule YouTubeScrapper.Playlists.Video do
     field :duration, :string
     field :posted_on, :date
     field :url, :string
-    field :playlist_id, :binary_id
+
+    belongs_to :playlist, YouTubeScrapper.Playlists.Playlist
 
     timestamps(type: :utc_datetime)
   end

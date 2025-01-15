@@ -9,6 +9,8 @@ defmodule YouTubeScrapper.Playlists.Playlist do
     field :title, :string
     field :last_scraping, :naive_datetime
 
+    has_many :videos, YouTubeScrapper.Playlists.Video
+
     timestamps(type: :utc_datetime)
   end
 
