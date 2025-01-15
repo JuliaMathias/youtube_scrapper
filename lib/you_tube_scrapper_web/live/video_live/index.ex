@@ -6,7 +6,8 @@ defmodule YouTubeScrapperWeb.VideoLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :videos, Playlists.list_videos())}
+    videos = Playlists.list_videos() |> Repo.preload(:playlist)
+    {:ok, stream(socket, :videos, videos)}
   end
 
   @impl true

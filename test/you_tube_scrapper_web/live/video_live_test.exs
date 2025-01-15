@@ -9,21 +9,23 @@ defmodule YouTubeScrapperWeb.VideoLiveTest do
     title: "some title",
     duration: "some duration",
     posted_on: "2025-01-13",
-    url: "some url"
+    url: "some url",
+    playlist_id: nil
   }
   @update_attrs %{
     description: "some updated description",
     title: "some updated title",
     duration: "some updated duration",
     posted_on: "2025-01-14",
-    url: "some updated url"
+    url: "some updated url",
+    playlist_id: nil
   }
-  @invalid_attrs %{description: nil, title: nil, duration: nil, posted_on: nil}
+  @invalid_attrs %{description: nil, title: nil, duration: nil, posted_on: nil, playlist_id: nil}
 
   defp create_video(_) do
     playlist = playlist_fixture()
     video = video_fixture(%{playlist_id: playlist.id})
-    %{video: video}
+    %{video: video, playlist: playlist}
   end
 
   describe "Index" do
@@ -36,7 +38,7 @@ defmodule YouTubeScrapperWeb.VideoLiveTest do
       assert html =~ video.description
     end
 
-    test "saves new video", %{conn: conn} do
+    test "saves new video", %{conn: conn, playlist: playlist} do
       {:ok, index_live, _html} = live(conn, ~p"/videos")
 
       assert index_live |> element("a", "New Video") |> render_click() =~
@@ -49,7 +51,7 @@ defmodule YouTubeScrapperWeb.VideoLiveTest do
              |> render_change() =~ "can&#39;t be blank"
 
       assert index_live
-             |> form("#video-form", video: @create_attrs)
+             |> form("#video-form", video: Map.put(@create_attrs, :playlist_id, playlist.id))
              |> render_submit()
 
       assert_patch(index_live, ~p"/videos")
@@ -59,7 +61,7 @@ defmodule YouTubeScrapperWeb.VideoLiveTest do
       assert html =~ "some description"
     end
 
-    test "updates video in listing", %{conn: conn, video: video} do
+    test "updates video in listing", %{conn: conn, video: video, playlist: playlist} do
       {:ok, index_live, _html} = live(conn, ~p"/videos")
 
       assert index_live |> element("#videos-#{video.id} a", "Edit") |> render_click() =~
@@ -72,7 +74,7 @@ defmodule YouTubeScrapperWeb.VideoLiveTest do
              |> render_change() =~ "can&#39;t be blank"
 
       assert index_live
-             |> form("#video-form", video: @update_attrs)
+             |> form("#video-form", video: Map.put(@update_attrs, :playlist_id, playlist.id))
              |> render_submit()
 
       assert_patch(index_live, ~p"/videos")
@@ -100,7 +102,7 @@ defmodule YouTubeScrapperWeb.VideoLiveTest do
       assert html =~ video.description
     end
 
-    test "updates video within modal", %{conn: conn, video: video} do
+    test "updates video within modal", %{conn: conn, video: video, playlist: playlist} do
       {:ok, show_live, _html} = live(conn, ~p"/videos/#{video}")
 
       assert show_live |> element("a", "Edit") |> render_click() =~
@@ -113,7 +115,7 @@ defmodule YouTubeScrapperWeb.VideoLiveTest do
              |> render_change() =~ "can&#39;t be blank"
 
       assert show_live
-             |> form("#video-form", video: @update_attrs)
+             |> form("#video-form", video: Map.put(@update_attrs, :playlist_id, playlist.id))
              |> render_submit()
 
       assert_patch(show_live, ~p"/videos/#{video}")

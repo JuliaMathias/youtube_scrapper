@@ -113,7 +113,7 @@ defmodule YouTubeScrapper.Playlists do
 
   """
   def list_videos do
-    Repo.all(Video)
+    Repo.all(Video) |> Repo.preload(:playlist)
   end
 
   @doc """
