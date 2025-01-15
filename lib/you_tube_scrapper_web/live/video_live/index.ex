@@ -3,6 +3,7 @@ defmodule YouTubeScrapperWeb.VideoLive.Index do
 
   alias YouTubeScrapper.Playlists
   alias YouTubeScrapper.Playlists.Video
+  alias YouTubeScrapper.Repo
 
   @impl true
   def mount(_params, _session, socket) do
