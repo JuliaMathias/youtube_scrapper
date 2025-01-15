@@ -71,7 +71,7 @@ defmodule YouTubeScrapper.PlaylistsTest do
   end
 
   describe "videos" do
-    @invalid_attrs %{description: nil, title: nil, duration: nil, scraped_on: nil}
+    @invalid_attrs %{description: nil, title: nil, duration: nil, posted_on: nil}
 
     test "list_videos/0 returns all videos" do
       video = video_fixture()
@@ -88,14 +88,14 @@ defmodule YouTubeScrapper.PlaylistsTest do
         description: "some description",
         title: "some title",
         duration: "some duration",
-        scraped_on: ~D[2025-01-13]
+        posted_on: ~D[2025-01-13]
       }
 
       assert {:ok, %Video{} = video} = Playlists.create_video(valid_attrs)
       assert video.description == "some description"
       assert video.title == "some title"
       assert video.duration == "some duration"
-      assert video.scraped_on == ~D[2025-01-13]
+      assert video.posted_on == ~D[2025-01-13]
     end
 
     test "create_video/1 with invalid data returns error changeset" do
@@ -109,14 +109,14 @@ defmodule YouTubeScrapper.PlaylistsTest do
         description: "some updated description",
         title: "some updated title",
         duration: "some updated duration",
-        scraped_on: ~D[2025-01-14]
+        posted_on: ~D[2025-01-14]
       }
 
       assert {:ok, %Video{} = video} = Playlists.update_video(video, update_attrs)
       assert video.description == "some updated description"
       assert video.title == "some updated title"
       assert video.duration == "some updated duration"
-      assert video.scraped_on == ~D[2025-01-14]
+      assert video.posted_on == ~D[2025-01-14]
     end
 
     test "update_video/2 with invalid data returns error changeset" do
