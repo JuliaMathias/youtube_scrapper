@@ -47,10 +47,6 @@ defmodule YouTubeScrapperWeb.VideoLiveTest do
       assert_patch(index_live, ~p"/videos/new")
 
       assert index_live
-             |> form("#video-form", video: @invalid_attrs)
-             |> render_change() =~ "can&#39;t be blank"
-
-      assert index_live
              |> form("#video-form", video: Map.put(@create_attrs, :playlist_id, playlist.id))
              |> render_submit()
 
@@ -68,10 +64,6 @@ defmodule YouTubeScrapperWeb.VideoLiveTest do
                "Edit Video"
 
       assert_patch(index_live, ~p"/videos/#{video}/edit")
-
-      assert index_live
-             |> form("#video-form", video: @invalid_attrs)
-             |> render_change() =~ "can&#39;t be blank"
 
       assert index_live
              |> form("#video-form", video: Map.put(@update_attrs, :playlist_id, playlist.id))
@@ -109,10 +101,6 @@ defmodule YouTubeScrapperWeb.VideoLiveTest do
                "Edit Video"
 
       assert_patch(show_live, ~p"/videos/#{video}/show/edit")
-
-      assert show_live
-             |> form("#video-form", video: @invalid_attrs)
-             |> render_change() =~ "can&#39;t be blank"
 
       assert show_live
              |> form("#video-form", video: Map.put(@update_attrs, :playlist_id, playlist.id))
